@@ -34,7 +34,7 @@ jobs:
           context: jvm/
           file: jvm/jre.Dockerfile
           push: true
-          tags: base-image-jre-${GITHUB_REF#refs/tags/v}
+          tags: base-image-jre:${GITHUB_REF#refs/tags/v}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
