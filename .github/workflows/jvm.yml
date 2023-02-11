@@ -8,6 +8,9 @@ env:
 
 jobs:
   build:
+    strategy:
+      matrix:
+        images: [jre, jdk]
     runs-on: ubuntu-latest
     if: startsWith(github.event.ref, 'refs/tags/v')
     steps:
@@ -27,40 +30,21 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Docker Metadata action(JRE)
-        id: jre-meta
+      - name: Docker Metadata action(${{ matrix.images }})
+        id: meta
         uses: docker/metadata-action@v4.3.0
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-jre
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-${{ matrix.images }}
           tags: |
             type=semver,pattern={{version}}
 
-      - name: Build and push Docker image(JRE)
+      - name: Build and push Docker image(${{ matrix.images }})
         uses: docker/build-push-action@v4.0.0
         with:
           platforms: linux/amd64,linux/arm64
           context: jvm/
           file: jvm/jre.Dockerfile
           push: true
-          tags: ${{ steps.jre-meta.outputs.tags }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-
-      - name: Docker Metadata action(JDK)
-        id: jdk-meta
-        uses: docker/metadata-action@v4.3.0
-        with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-jdk
-          tags: |
-            type=semver,pattern={{version}}
-
-      - name: Build and push Docker image(JDK)
-        uses: docker/build-push-action@v4.0.0
-        with:
-          platforms: linux/amd64,linux/arm64
-          context: jvm/
-          file: jvm/jdk.Dockerfile
-          push: true
-          tags: ${{ steps.jdk-meta.outputs.tags }}
+          tags: ${{ steps.meta.outputs.tags }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
