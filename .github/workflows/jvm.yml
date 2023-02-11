@@ -29,9 +29,10 @@ jobs:
 
       - name: Docker Metadata action(JRE)
         uses: docker/metadata-action@v4.3.0
-        images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-jre
-        tags: |
-          type=semver,pattern={{version}}
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-jre
+          tags: |
+            type=semver,pattern={{version}}
 
       - name: Build and push Docker image(JRE)
         uses: docker/build-push-action@v4.0.0
@@ -45,9 +46,10 @@ jobs:
 
       - name: Docker Metadata action(JDK)
         uses: docker/metadata-action@v4.3.0
-        images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-jdk
-        tags: |
-          type=semver,pattern={{version}}
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-jdk
+          tags: |
+            type=semver,pattern={{version}}
 
       - name: Build and push Docker image(JDK)
         uses: docker/build-push-action@v4.0.0
