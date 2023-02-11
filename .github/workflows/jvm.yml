@@ -28,6 +28,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Docker Metadata action(JRE)
+        id: jre-meta
         uses: docker/metadata-action@v4.3.0
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-jre
@@ -41,11 +42,12 @@ jobs:
           context: jvm/
           file: jvm/jre.Dockerfile
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: ${{ steps.jre-meta.outputs.tags }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
       - name: Docker Metadata action(JDK)
+        id: jdk-meta
         uses: docker/metadata-action@v4.3.0
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-jdk
@@ -59,6 +61,6 @@ jobs:
           context: jvm/
           file: jvm/jdk.Dockerfile
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: ${{ steps.jdk-meta.outputs.tags }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
