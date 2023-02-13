@@ -12,6 +12,8 @@ jobs:
       matrix:
         images: [jre, jdk]
     runs-on: ubuntu-latest
+    permissions:
+      packages: write
     if: startsWith(github.event.ref, 'refs/tags/v')
     steps:
       - name: Checkout repository
