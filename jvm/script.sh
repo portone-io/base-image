@@ -1,5 +1,5 @@
 #!/bin/sh
-export GRPC_HEALTH_PROBE_VERSION=v0.4.14
+export GRPC_HEALTH_PROBE_VERSION=v0.4.23
 
 ARCH=""
 case $(arch) in
@@ -17,4 +17,3 @@ wget -O /dd-java-agent.jar https://dtdg.co/latest-java-tracer
 
 wget -O /bin/grpc_health_probe https://github.com/grpc-ecosystem/grpc-health-probe/releases/download/${GRPC_HEALTH_PROBE_VERSION}/grpc_health_probe-linux-${ARCH}
 chmod +x /bin/grpc_health_probe
-
