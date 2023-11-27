@@ -1,4 +1,4 @@
-FROM eclipse-temurin:19.0.2_7-jdk
+FROM eclipse-temurin:21.0.1_12-jdk
 
 WORKDIR /
 
