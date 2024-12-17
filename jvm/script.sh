@@ -1,5 +1,5 @@
 #!/bin/sh
-export GRPC_HEALTH_PROBE_VERSION=v0.4.23
+export GRPC_HEALTH_PROBE_VERSION=v0.4.26
 
 ARCH=""
 case $(arch) in
