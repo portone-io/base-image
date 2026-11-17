@@ -1,4 +1,4 @@
-FROM eclipse-temurin:25.0.5_8-jdk
+FROM ghcr.io/portone-io/openjdk:25.0.5.1-custom-resolute-78344e710114
 
 WORKDIR /
 
